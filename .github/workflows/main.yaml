@@ -1,0 +1,44 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install HAProxy
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends software-properties-common
+          sudo add-apt-repository ppa:vbernat/haproxy-3.0 -y
+          sudo apt-get install haproxy=3.0.\*
+        shell: bash
+      - name: Run tests
+        run: |
+          cargo test -p haproxy-otel-tests
+        shell: bash
+
+  rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rustfmt
+      - run: cargo fmt -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: nightly
+          components: clippy
+      - uses: giraffate/clippy-action@v1
+        with:
+          reporter: 'github-pr-review'

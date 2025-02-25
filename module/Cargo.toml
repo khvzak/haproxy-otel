@@ -1,0 +1,13 @@
+[package]
+name = "haproxy-otel-module"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+haproxy-api = { version = "0.8" }
+haproxy-otel = { path = ".." }
+mlua = "0.9"
