@@ -6,7 +6,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
       - uses: dtolnay/rust-toolchain@stable
       - name: Install HAProxy
         run: |
@@ -24,7 +24,7 @@ jobs:
     name: Rustfmt
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
       - uses: dtolnay/rust-toolchain@nightly
         with:
           components: rustfmt
@@ -34,11 +34,11 @@ jobs:
     name: Clippy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: nightly
           components: clippy
-      - uses: giraffate/clippy-action@v1
+      - uses: giraffate/clippy-action@a6030db3b8bde89e5316ff1adb2a0d8954c2ff40 # v1.0.0
         with:
           reporter: 'github-pr-review'
